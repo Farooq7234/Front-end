@@ -4,9 +4,15 @@ import { FaXmark, FaBars } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from "framer-motion";
 import PropTypes from 'prop-types';
+import authService from '../Appwrite/auth';
+import {toast} from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../store/authSlice';
 
 
 export function Banner()  {
+    const authStatus = useSelector((state)=> state.auth.status)
+    const dispatch = useDispatch()
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -19,6 +25,13 @@ export function Banner()  {
         {link: "About", path: "/about"},
         
     ];
+
+    const logoutHandler = () => {
+      authService.logout().then(() => {
+          dispatch(logout())
+          toast.success("Logout Successfully")
+      })
+  }
 
     return (
         <>
@@ -43,11 +56,21 @@ export function Banner()  {
                         </div>
                     <div className='space-x-12 hidden md:flex items-center font-semibold'>
                       
-                        <button className="flex lg:flex bg-secondary  transition-all duration-300 rounded-3xl text-white hover:bg-blue-900 px-6 py-3">
+                        {!authStatus ? <button className="flex lg:flex bg-secondary  transition-all duration-300 rounded-3xl text-white hover:bg-blue-900 px-6 py-3">
                             <FlyoutLogin href="#" FlyoutContent={LoginContent}>
                                 Login
                             </FlyoutLogin>
                         </button>
+                        :
+                        <button className="flex lg:flex bg-red-600  transition-all duration-300 rounded-3xl text-white hover:bg-blue-900 px-6 py-3"
+                        onClick={logoutHandler}
+                        >
+                           
+                                Logout
+                            
+                        </button>
+                         
+                        }
                     </div>
                     
                 </div>
@@ -65,11 +88,20 @@ export function Banner()  {
                       Registration
                     </FlyoutLogin>
                   </div>
-                  <button className="flex lg:flex bg-secondary  transition-all z-10 duration-300 rounded-3xl text-white hover:bg-blue-900 px-6 py-3 my-2">
-                    <FlyoutLogin href="#" FlyoutContent={LoginContent}>
-                      Login
-                    </FlyoutLogin>
-                  </button>
+                  {!authStatus ? <button className="flex lg:flex bg-secondary  transition-all duration-300 rounded-3xl text-white hover:bg-blue-900 px-6 py-3">
+                            <FlyoutLogin href="#" FlyoutContent={LoginContent}>
+                                Login
+                            </FlyoutLogin>
+                        </button>
+                        :
+                        <button className="flex lg:flex bg-red-600  transition-all duration-300 rounded-3xl text-white hover:bg-blue-900 px-6 py-3"
+                        onClick={logoutHandler}
+                        >
+                           
+                                Logout
+                        </button>
+                         
+                        }
                 </div>
             
             

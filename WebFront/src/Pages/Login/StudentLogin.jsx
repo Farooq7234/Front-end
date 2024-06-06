@@ -1,4 +1,4 @@
-import { SLogin } from "../../components/Student/SLogin";
+import  SLogin  from "../../components/Student/SLogin";
 //import bgImage from '../../assets/studentlogin.jpeg'
 
 

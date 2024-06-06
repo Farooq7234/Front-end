@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FaXmark, FaBars } from "react-icons/fa6";
 import {Link} from 'react-router-dom';
 
+
 export const NavBar = () => {
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,11 +18,9 @@ export const NavBar = () => {
   const navItems = [
     { link: "Home", path: "/home" },
     { link: "About", path: "/about" },
-  
-    
-    
-   
   ];
+
+  
   
 
   return (
@@ -68,6 +67,9 @@ export const NavBar = () => {
                 <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
               </svg>
             </button>
+            
+
+
           </div>
         </div>
         
